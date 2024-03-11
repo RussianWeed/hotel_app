@@ -11,3 +11,9 @@ class HotelSerializer(serializers.Serializer):
     class Meta:
         model = Hotel
         fields = '__all__'
+
+class Serializer(serializers.Serializer):
+    city = serializers.CharField()
+    class Meta:
+        model = Location
+        fields = ('city')
