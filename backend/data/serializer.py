@@ -7,7 +7,9 @@ class LocationSerializer(serializers.Serializer):
         model = Location
         fields = '__all__'
 
-class HotelSerializer(serializers.Serializer):
+class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
         fields = '__all__'
+
+
