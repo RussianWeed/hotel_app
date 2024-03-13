@@ -4,5 +4,7 @@ from data import views
 
 urlpatterns = [
    path('locations/',views.location_detail,name='location_details'),
-   path('hotels/<str:city_name>/',views.get_hotel_names_by_city,name='hotel_based_on_location')
+   path('hotels/',views.get_hotel_names_by_city,name='hotel_based_on_location'), #jasonformat:{"city":"puri"}
+   path('user-list/',views.get_user_detail,name='contact_detail'),
+   path('user-detail/',views.get_user_details_basedon_gmail,name='get_user_details_basedon_email'), #{"user_gmail":"abdul@001gmail.com"}
 ]
