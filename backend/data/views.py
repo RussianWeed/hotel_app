@@ -70,17 +70,23 @@ def get_reservation_detail_list(request):
 
 @api_view(['POST'])
 def get_reservation_duration(request):
-    reservation_time_serializer = ReservationDurationSerializer(data=request.data)
-    if reservation_time_serializer.is_valid():
-        reservation_id = reservation_time_serializer.validated_data['reservation_id']
-        try:
-            checkin_details = Reservation.objects.get(reservation_id=reservation_id)
-            checkin_details_serializer = ReservationDurationSerializer(checkin_details)
-            return Response(checkin_details_serializer.data)
-        except Reservation.DoesNotExist:
-            return Response({'error': 'Reservation not found'}, status=status.HTTP_404_NOT_FOUND)
+    serializer = ReservationDurationSerializer(data=request.data)
+    if serializer.is_valid():
+        rid = serializer.validated_data['reservation_id']
+        print(rid)
+        reservation = Reservation.objects.get(reservation_id=rid)
+        p = {
+            'reservation_id': reservation.reservation_id,
+            'user_id': reservation.user_id.user_id,
+            'hotel_id': reservation.hotel_id.hotel_id,
+            'check_in': reservation.check_in,
+            'check_out': reservation.check_out
+        }
+        print(p)
+
+        return Response(p)
     else:
-        return Response(reservation_time_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors)
 
 
 

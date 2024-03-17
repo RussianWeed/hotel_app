@@ -33,6 +33,8 @@ class ReservationListSerializer(serializers.Serializer):
         fields = '__all__'
 
 class ReservationDurationSerializer(serializers.Serializer):
+    # city = serializers.CharField()
+    reservation_id = serializers.IntegerField()
     class Meta:
         model = Reservation  
         fields = ('reservation_id')  
