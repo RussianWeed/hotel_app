@@ -48,10 +48,16 @@ def get_user_details_basedon_gmail(request):
     serializer = UserDataSerializer(data=request.data)
     if serializer.is_valid():
         user_gmail = serializer.validated_data['user_gmail']
-        user_details = User_detail.objects.all().get(user_gmail=user_gmail)
+        user_details = User_detail.objects.get(user_gmail=user_gmail)
         serialized_data = UserSerializer(user_details)
-        return Response(serialized_data.data)
+        p = {
+            # 'user_id': user_details.user_id,
+            'user_name': user_details.user_name,
+            'user_gmail': user_details.user_gmail,
+            'user_password': user_details.user_password
+        }
+        return Response(p)
     else:
-        return Response(serialized_data.errors)
+        return Response(serializer.errors)
 
 # Create your views here.
