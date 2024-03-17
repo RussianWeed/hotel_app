@@ -73,7 +73,6 @@ def get_reservation_duration(request):
     serializer = ReservationDurationSerializer(data=request.data)
     if serializer.is_valid():
         rid = serializer.validated_data['reservation_id']
-        print(rid)
         reservation = Reservation.objects.get(reservation_id=rid)
         p = {
             'reservation_id': reservation.reservation_id,
@@ -82,8 +81,6 @@ def get_reservation_duration(request):
             'check_in': reservation.check_in,
             'check_out': reservation.check_out
         }
-        print(p)
-
         return Response(p)
     else:
         return Response(serializer.errors)
