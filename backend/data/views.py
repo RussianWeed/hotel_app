@@ -88,17 +88,21 @@ def get_reservation_duration(request):
 
 @api_view(['POST'])
 def get_reservation_details_basedon_gmail(request):
-    p = []
     serializer = UserDataSerializer(data=request.data)
     if serializer.is_valid():
         user_gmail = serializer.validated_data['user_gmail']
         print(user_gmail)
         user_details = User_detail.objects.get(user_gmail=user_gmail)
-        user_id = GetUserIdSerializer(user_details)
-        reservation_details = Reservation.objects.get(user_id=user_id.data)
-        serialized_user_data = GetReservationDetails(reservation_details)
-        return Response(serialized_user_data.data)
-
+        User_id = user_details.user_id
+        reservation_details = Reservation.objects.get(user_id=User_id)
+        p = {
+            'reservation_id':reservation_details.reservation_id,
+            'user_id': reservation_details.user_id.user_id,
+            'hotel_id': reservation_details.hotel_id.hotel_id,
+            'check_in': reservation_details.check_in,
+            'check_out': reservation_details.check_out
+        }
+        return Response(p)
     
     else:
         return Response(serializer.errors)
