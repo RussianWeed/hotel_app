@@ -44,3 +44,9 @@ class GetUserIdSerializer(serializers.Serializer):
         model = User_detail
         fields = ('user_id')
 
+class GetReservationDetails(serializers.Serializer):
+    user_id =serializers.IntegerField()
+    class Meta:
+        model = Reservation
+        fields = ('user_id')
+

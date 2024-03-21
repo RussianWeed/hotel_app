@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from .models import Location,Hotel,User_detail,Reservation
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer,GetUserIdSerializer
+from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer,GetUserIdSerializer,GetReservationDetails
 
 @api_view(['GET'])
 def location_detail(request):
@@ -88,22 +88,17 @@ def get_reservation_duration(request):
 
 @api_view(['POST'])
 def get_reservation_details_basedon_gmail(request):
+    p = []
     serializer = UserDataSerializer(data=request.data)
     if serializer.is_valid():
         user_gmail = serializer.validated_data['user_gmail']
+        print(user_gmail)
         user_details = User_detail.objects.get(user_gmail=user_gmail)
-        serialized_user_data_for_user_id = GetUserIdSerializer(data=user_details)
-        if serialized_user_data_for_user_id.is_valid():
-            user_id = serialized_user_data_for_user_id.validated_data['user_id']
-            reservation_detail = Reservation.objects.get(user_id=user_id)
-            p = {
-                        'reservation_id': reservation_detail.reservation_id,
-                        'user_id': reservation_detail.user_id.user_id,
-                        'hotel_id': reservation_detail.hotel_id.hotel_id,
-                        'check_in': reservation_detail.check_in,
-                        'check_out': reservation_detail.check_out
-                        }
-            return JsonResponse(p)
+        user_id = GetUserIdSerializer(user_details)
+        reservation_details = Reservation.objects.get(user_id=user_id.data)
+        serialized_user_data = GetReservationDetails(reservation_details)
+        return Response(serialized_user_data.data)
+
     
     else:
-        return JsonResponse(serializer.errors)
+        return Response(serializer.errors)
