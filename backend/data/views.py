@@ -4,7 +4,7 @@ from django.http import JsonResponse
 from .models import Location,Hotel,User_detail,Reservation
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer
+from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer,GetUserIdSerializer
 
 @api_view(['GET'])
 def location_detail(request):
@@ -86,11 +86,23 @@ def get_reservation_duration(request):
         return Response(serializer.errors)
 
 
-
+@api_view(['POST'])
+def get_reservation_details_basedon_gmail(request):
+    serializer = UserDataSerializer(data=request.data)
+    if serializer.is_valid():
+        user_gmail = serializer.validated_data['user_gmail']
+        user_details = User_detail.objects.get(user_gmail=user_gmail)
+        serialized_user_data_for_user_id = GetUserIdSerializer(user_details)
+        user_id = serialized_user_data_for_user_id.validated_data['user_id']
+        reservation_detail = Reservation.objects.get(user_id=user_id)
+        p = {
+                    'reservation_id': reservation_detail.reservation_id,
+                    'user_id': reservation_detail.user_id.user_id,
+                    'hotel_id': reservation_detail.hotel_id.hotel_id,
+                    'check_in': reservation_detail.check_in,
+                    'check_out': reservation_detail.check_out
+                    }
+        return Response(p)
     
-
-
-
-
-
-# Create your views here.
+    else:
+        return Response(serializer.errors)
