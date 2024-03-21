@@ -92,17 +92,18 @@ def get_reservation_details_basedon_gmail(request):
     if serializer.is_valid():
         user_gmail = serializer.validated_data['user_gmail']
         user_details = User_detail.objects.get(user_gmail=user_gmail)
-        serialized_user_data_for_user_id = GetUserIdSerializer(user_details)
-        user_id = serialized_user_data_for_user_id.validated_data['user_id']
-        reservation_detail = Reservation.objects.get(user_id=user_id)
-        p = {
-                    'reservation_id': reservation_detail.reservation_id,
-                    'user_id': reservation_detail.user_id.user_id,
-                    'hotel_id': reservation_detail.hotel_id.hotel_id,
-                    'check_in': reservation_detail.check_in,
-                    'check_out': reservation_detail.check_out
-                    }
-        return Response(p)
+        serialized_user_data_for_user_id = GetUserIdSerializer(data=user_details)
+        if serialized_user_data_for_user_id.is_valid():
+            user_id = serialized_user_data_for_user_id.validated_data['user_id']
+            reservation_detail = Reservation.objects.get(user_id=user_id)
+            p = {
+                        'reservation_id': reservation_detail.reservation_id,
+                        'user_id': reservation_detail.user_id.user_id,
+                        'hotel_id': reservation_detail.hotel_id.hotel_id,
+                        'check_in': reservation_detail.check_in,
+                        'check_out': reservation_detail.check_out
+                        }
+            return JsonResponse(p)
     
     else:
-        return Response(serializer.errors)
+        return JsonResponse(serializer.errors)
