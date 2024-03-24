@@ -9,4 +9,5 @@ urlpatterns = [
    path('user-detail/',views.get_user_details_basedon_gmail,name='get_user_details_basedon_email'), #{"user_gmail":"abdul@001gmail.com"}
    path('reservation-list/',views.get_reservation_detail_list,name='get_reservation_detail_list'),
    path('reservation-details/',views.get_reservation_duration,name='get_reservation_duration'),
+   path('reservation-detail/',views.get_reservation_details_basedon_gmail,name='get_reservation_details_basedon_gmail')
 ]
