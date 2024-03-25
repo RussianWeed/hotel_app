@@ -1,10 +1,11 @@
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .serializer import AuthorizationSerializer
+from .serializer import AuthorizationSerializer,LoginSerializer
 
 @api_view(['POST'])
 def user_registration(request):
@@ -31,3 +32,21 @@ def user_registration(request):
 
     else:
           return Response(serialized_data.error_messages)
+    
+
+@api_view(['POST'])
+def user_login(request):
+          serialized_data = LoginSerializer(data=request.data)
+          if serialized_data.is_valid():
+                username = serialized_data.validated_data['username']
+                password = serialized_data.validated_data['password']
+                user = authenticate(request, username=username, password=password)
+                if user is not None:
+                        login(request, user)
+                        return Response("Logged in succesfully!")
+                else:
+                        return Response({"Credetials do not match"})
+                
+          else:
+                return Response("api-error")
+              
