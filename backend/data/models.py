@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 
 class Location(models.Model):
@@ -21,7 +22,7 @@ class User_detail(models.Model):
 
 class Reservation(models.Model):
     reservation_id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(User_detail, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE)
     check_in = models.DateTimeField()
     check_out = models.DateTimeField()
