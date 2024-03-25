@@ -1,10 +1,7 @@
-from rest_framework import status
-from django.shortcuts import render
-from django.http import JsonResponse
 from .models import Location,Hotel,User_detail,Reservation
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer,GetUserIdSerializer,GetReservationDetails
+from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer
 
 @api_view(['GET'])
 def location_detail(request):
