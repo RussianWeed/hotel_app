@@ -8,25 +8,28 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.FrameLayout;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
 
-    BottomNavigationView bottom_nav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottom_nav = findViewById(R.id.button_navigation_bar);
+        FrameLayout frameLayout = findViewById(R.id.framelayout);
+        BottomNavigationView bottom_nav = findViewById(R.id.button_navigation_bar);
         bottom_nav.setSelectedItemId(R.id.home);
-        bottom_nav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
+        loadfragment(new HomeFragment());
+        bottom_nav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 int id = item.getItemId();
                 if (id == R.id.home) {
                     loadfragment(new HomeFragment());
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
 
 
     }

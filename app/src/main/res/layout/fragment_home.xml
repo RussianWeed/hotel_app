@@ -4,63 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:background="#D2C5C5">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.imageview.ShapeableImageView
-                    android:id="@+id/user_pic"
-                    android:layout_width="50sp"
-                    android:layout_height="50sp"
-                    android:layout_marginTop="8dp"
-                    android:padding="5dp"
-                    android:src="@drawable/baseline_person_24"
-                    app:shapeAppearanceOverlay="@style/Circular"
-                    app:strokeColor="#00BCD4"
-                    app:strokeWidth="5dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:id="@+id/user_name"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/extra_field" />
-
-
-            </LinearLayout>
-
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50sp"
-                android:id="@+id/serachbar"/>
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/recyler_view"/>
-
-
-        </LinearLayout>
-
-
-    </ScrollView>
+        android:layout_height="match_parent"
+        android:id="@+id/hotel_list"/>
 
 </FrameLayout>

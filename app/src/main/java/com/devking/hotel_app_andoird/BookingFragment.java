@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 
 public class BookingFragment extends Fragment {
-
-
+    public BookingFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

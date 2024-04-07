@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 
 public class SavedFragment extends Fragment {
 
-
+    public SavedFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
