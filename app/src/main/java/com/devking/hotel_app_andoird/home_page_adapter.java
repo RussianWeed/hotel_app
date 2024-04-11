@@ -9,12 +9,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.devking.hotel_app_andoird.R;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class home_page_adapter extends RecyclerView.Adapter<home_page_adapter.View_Holder> {
 
     public ArrayList<hotel_list_structure_class> hotel_list;
+
     Context context;
 
     public home_page_adapter(ArrayList<hotel_list_structure_class> hotel_list,Context context) {

@@ -6,10 +6,73 @@
     tools:context=".ExploreFragment"
     android:background="#A77FED">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Explore fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="12sp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:hint="@string/Drop_down_menu"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+
+            <AutoCompleteTextView
+                android:id="@+id/drop_down_menu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18sp">
+
+            <TextView
+                android:layout_width="350sp"
+                android:layout_height="25sp"
+                android:id="@+id/ckeck_in"
+                android:layout_marginLeft="16sp"
+               />
+
+            <ImageButton
+                android:id="@+id/checkin_img"
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:src="@drawable/calendar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="18sp">
+
+            <TextView
+                android:layout_width="350sp"
+                android:layout_height="25sp"
+                android:layout_marginLeft="16sp"
+                android:id="@+id/check_out"/>
+
+            <ImageButton
+                android:layout_width="25sp"
+                android:layout_height="25sp"
+                android:id="@+id/checkout_img"
+                android:src="@drawable/calendar"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recyler_view"/>
+
+    </LinearLayout>
 
 </FrameLayout>
