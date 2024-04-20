@@ -44,4 +44,7 @@ class GetUserIdSerializer(serializers.Serializer):
         model = User_detail
         fields = ('user_id')
 
-
+class GetHotelListBasedOndateLocation(serializers.Serializer):
+    checkin = serializers.DateField()
+    checkout = serializers.DateField()
+    location = serializers.CharField()
