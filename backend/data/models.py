@@ -22,8 +22,8 @@ class User_detail(models.Model):
 
 class Reservation(models.Model):
     reservation_id = models.IntegerField(primary_key=True)
-    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User_detail, on_delete=models.CASCADE)#settings.AUTH_USER_MODEL
     hotel_id = models.ForeignKey(Hotel, on_delete=models.CASCADE)
-    check_in = models.DateTimeField()
-    check_out = models.DateTimeField()
+    check_in = models.DateField()
+    check_out = models.DateField()
 

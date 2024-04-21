@@ -1,13 +1,32 @@
+from django.db import connection
+from django.shortcuts import render
 from .models import Location,Hotel,User_detail,Reservation
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializer import LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer
+from .serializer import GetHotelListBasedOndateLocation,LocationSerializer,HotelSerializer,HotelDataSerializer,UserSerializer,UserDataSerializer,ReservationListSerializer,ReservationDurationSerializer
 
 @api_view(['GET'])
 def location_detail(request):
     locations = Location.objects.all()
-    serializer = LocationSerializer(locations)
-    return Response(serializer.data)
+    location_list=[]
+    for location in locations:
+        location_list.append({
+            'location' : location.city,
+            'location-id' : location.location_id,
+        })
+    return Response(location_list)
+
+@api_view(['GET'])
+def hotel_list(request):
+    hotel_list = Hotel.objects.all()
+    serialized_data = []
+    for hotel in hotel_list:
+        serialized_data.append({
+            'hotel_name' : hotel.hotel_name,
+            'hotel_location': hotel.hotel_location.city,
+        })
+        return Response(serialized_data)
+    
 
 
 @api_view(['POST'])
@@ -103,3 +122,30 @@ def get_reservation_details_basedon_gmail(request):
     
     else:
         return Response(serializer.errors)
+    
+
+
+@api_view(['POST'])
+def get_hotel_list_basedon_date_and_location(request):
+    serialized_data = GetHotelListBasedOndateLocation(data=request.data)
+    if serialized_data.is_valid():
+        checkin = serialized_data.validated_data['checkin']
+        checkout = serialized_data.validated_data['checkout']
+        location = serialized_data.validated_data['location']
+        location_id = Location.objects.get(city=location).location_id
+        reserved_hotel_list = Reservation.objects.filter(check_in = checkin).filter(check_out = checkout)
+        reserved_hotel_ids = reserved_hotel_list.values_list('hotel_id', flat=True).distinct()
+        available_hotels = Hotel.objects.filter(hotel_location=location_id).exclude(hotel_id__in=reserved_hotel_ids)
+        available_hotels_list = list(available_hotels)
+        p=[]
+        for hotel in available_hotels_list:
+            p.append({
+                "hotel-id" : hotel.hotel_id
+            })
+            print(connection.queries)
+        return Response(p)
+        
+    else:
+          return Response(serialized_data.errors)
+        
+        
