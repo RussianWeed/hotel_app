@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Explore_fragment_adapter extends RecyclerView.Adapter<Explore_fragment_adapter.View_Holder_Explore_Fragment> {
 
@@ -33,6 +34,7 @@ public class Explore_fragment_adapter extends RecyclerView.Adapter<Explore_fragm
     public int getItemCount() {
         return (hotel_list != null) ? hotel_list.size() : 0;
     }
+
 
     public class View_Holder_Explore_Fragment extends RecyclerView.ViewHolder {
 
