@@ -6,10 +6,6 @@
     android:title="Home"
     android:icon="@drawable/home"/>
 
-    <item
-        android:id="@+id/saved"
-        android:title="Saved"
-        android:icon="@drawable/saved"/>
 
     <item
         android:id="@+id/explore"

@@ -31,9 +31,6 @@ public class MainActivity extends AppCompatActivity  {
                 if (id == R.id.home) {
                     loadfragment(new HomeFragment());
                 }
-                else if(id == R.id.saved){
-                    loadfragment(new SavedFragment());
-                }
                 else if (id == R.id.explore){
                     loadfragment(new ExploreFragment());
                 }
