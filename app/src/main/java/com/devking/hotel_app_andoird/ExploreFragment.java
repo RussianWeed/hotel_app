@@ -146,8 +146,6 @@ public class ExploreFragment extends Fragment {
                   adapter =  new Explore_fragment_adapter(hotel_list);
                   recyclerView.setAdapter(adapter);
                     for (hotel_list_structure_class hotel : hotel_list) {
-                        Log.d("HotelName", hotel.getHotel_name());
-                        Log.d("HotelLocation", hotel.getHotel_location());
                     }
                 }
             }
