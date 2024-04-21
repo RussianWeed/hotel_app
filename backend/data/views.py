@@ -18,14 +18,16 @@ def location_detail(request):
 
 @api_view(['GET'])
 def hotel_list(request):
-    hotel_list = Hotel.objects.all()
-    serialized_data = []
+    hotels = Hotel.objects.all()
+    hotel_list = list(hotels)
+    p=[]
     for hotel in hotel_list:
-        serialized_data.append({
+        p.append({
             'hotel_name' : hotel.hotel_name,
-            'hotel_location': hotel.hotel_location.city,
+            'hotel_location' : hotel.hotel_location.city
         })
-        return Response(serialized_data)
+    return Response(p)
+    
     
 
 
@@ -140,9 +142,9 @@ def get_hotel_list_basedon_date_and_location(request):
         p=[]
         for hotel in available_hotels_list:
             p.append({
-                "hotel-id" : hotel.hotel_id
+                "hotel_name" : hotel.hotel_name,
+                "hotel_location" : hotel.hotel_location.city
             })
-            print(connection.queries)
         return Response(p)
         
     else:
