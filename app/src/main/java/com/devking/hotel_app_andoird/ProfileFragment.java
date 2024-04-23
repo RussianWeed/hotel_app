@@ -3,7 +3,9 @@ package com.devking.hotel_app_andoird;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +52,9 @@ public class ProfileFragment extends Fragment {
                 password1 = password1_tv.getText().toString();
                 password2 = password2_tv.getText().toString();
                 signup_method();
+                FragmentTransaction tr = getParentFragmentManager().beginTransaction();
+                tr.replace(R.id.framelayout,new ProfileFragment());
+                tr.commit();
 
             }
         });
@@ -72,6 +77,10 @@ public class ProfileFragment extends Fragment {
             public void onResponse(Call<List<Profile_signup_structure>> call, Response<List<Profile_signup_structure>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     message = response.body();
+                    if (message.isEmpty()== false){
+                        String toast_msg = message.get(0).getMessage().toString();
+                        Log.d("ToastMessage", toast_msg);
+                    }
                 }
             }
 
@@ -82,4 +91,5 @@ public class ProfileFragment extends Fragment {
         });
 
     }
+
 }
